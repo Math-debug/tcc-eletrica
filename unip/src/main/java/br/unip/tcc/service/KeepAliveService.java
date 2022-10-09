@@ -22,6 +22,12 @@ public class KeepAliveService {
 		return keepAliveRepository.findById(id).get();
 	}
 	public KeepAlive save (KeepAliveDTO dto) {
-		return keepAliveRepository.save(KeepAliveConverter.convertTo(dto));
+		KeepAlive entity =  KeepAliveConverter.convertTo(dto);
+		double fp = 0.8;
+		entity.setFp(fp);
+		entity.setPotenciaaparente(entity.getVoltage() * entity.getCurrent());
+		entity.setPotenciaativa(entity.getPotenciaaparente() * fp);
+		entity.setPotenciareativa(Math.sqrt(Math.pow(entity.getPotenciaaparente(),2) - Math.pow(entity.getPotenciaativa(), 2)));
+		return keepAliveRepository.save(entity);
 	}
 }

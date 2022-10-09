@@ -24,4 +24,8 @@ public class SysUserService {
 	public SysUser save (SysUserDTO dto) {
 		return sysUserRepository.save(SysUserConverter.convertTo(dto));
 	}
+	public SysUserDTO findByUserName(String name) {
+		SysUser user =  sysUserRepository.findByUserName(name);
+		return SysUserConverter.convertTo(user);
+	}
 }

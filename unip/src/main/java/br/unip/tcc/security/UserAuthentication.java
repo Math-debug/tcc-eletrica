@@ -1,7 +1,5 @@
 package br.unip.tcc.security;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,11 +17,7 @@ public class UserAuthentication implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		List <SysUser> users = sysUserRepository.findByUserName(username);
-		SysUser user = null;
-		for(SysUser userArray : users) {
-				user = userArray;
-		}
+		SysUser user = sysUserRepository.findByUserName(username);
 		if(user == null) {
 			throw new UsernameNotFoundException("Usuário não encontrado");
 		}

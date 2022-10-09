@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,5 +48,11 @@ public class SysUserController {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
+	}
+	@GetMapping("/get")
+	public ResponseEntity<SysUserDTO> getUser() {
+		Authentication obj = SecurityContextHolder.getContext().getAuthentication();
+		SysUserDTO user = sysUserService.findByUserName(obj.getName());
+		return ResponseEntity.ok().body(user);
 	}
 }

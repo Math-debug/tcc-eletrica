@@ -9,7 +9,7 @@ public class EquipmentConverter {
 		Equipment entity = new Equipment();
 		entity.setEquipmentid(dto.getId());
 		entity.setDescription(dto.getDescription());
-		entity.setEquipmentType(EquipmentTypeConverter.convertTo(dto.getEquipmentType()));
+		entity.setEquipmentType(dto.getEquipmentType() == null? null : EquipmentTypeConverter.convertTo(dto.getEquipmentType()));
 		entity.setName(dto.getName());
 		entity.setNominalCurrent(dto.getNominalCurrent());
 		entity.setVoltage(dto.getVoltage());

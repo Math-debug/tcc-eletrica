@@ -6,7 +6,7 @@ import br.unip.tcc.entity.dto.SysUserGroupDTO;
 public class UserGroupConverter {
 	public static SysUserGroup convertTo(SysUserGroupDTO dto) {
 		SysUserGroup entity = new SysUserGroup();
-		entity.setGroupName(dto.getGroupName());
+		entity.setGroupName(dto.getGroupName().toUpperCase());
 		entity.setSysusergroupid(dto.getId());
 		return entity;
 	}

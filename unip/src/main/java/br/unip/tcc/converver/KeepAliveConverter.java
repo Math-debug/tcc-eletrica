@@ -14,6 +14,7 @@ public class KeepAliveConverter {
 		entity.setPotenciaativa(dto.getPotenciaativa());
 		entity.setPotenciareativa(dto.getPotenciareativa());
 		entity.setEquipment(EquipmentConverter.convertTo(dto.getEquipment()));
+		entity.setVoltage(dto.getVoltage());
 		return entity;
 	}
 	

@@ -1,5 +1,5 @@
-/home/matheus/TCC/TCCWS/Autentication/src/main/java/security/JWTAuthenticationFilter.java
-/home/matheus/TCC/TCCWS/Autentication/src/main/java/security/TokenAuthenticationService.java
-/home/matheus/TCC/TCCWS/Autentication/src/main/java/security/UserAuthentication.java
-/home/matheus/TCC/TCCWS/Autentication/src/main/java/security/JWTLoginFilter.java
-/home/matheus/TCC/TCCWS/Autentication/src/main/java/security/WebSecurityConfig.java
+/home/matheus/TCC/TCCWS/autentication/src/main/java/br/unip/tcc/security/UserAuthentication.java
+/home/matheus/TCC/TCCWS/autentication/src/main/java/br/unip/tcc/security/JWTLoginFilter.java
+/home/matheus/TCC/TCCWS/autentication/src/main/java/br/unip/tcc/security/WebSecurityConfig.java
+/home/matheus/TCC/TCCWS/autentication/src/main/java/br/unip/tcc/security/JWTAuthenticationFilter.java
+/home/matheus/TCC/TCCWS/autentication/src/main/java/br/unip/tcc/security/TokenAuthenticationService.java

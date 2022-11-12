@@ -1,4 +1,4 @@
-package security;
+package br.unip.tcc.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

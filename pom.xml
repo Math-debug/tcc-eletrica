@@ -16,8 +16,8 @@
 		<java.version>11</java.version>
 	</properties>
     <modules>
-        <module>unip</module>
-        <module>Autentication</module>
+        <module>unip-core</module>
+        <module>autentication</module>
         <module>unip-domain</module>
     </modules>
 	<dependencies>

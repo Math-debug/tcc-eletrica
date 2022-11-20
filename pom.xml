@@ -19,6 +19,7 @@
         <module>unip-core</module>
         <module>autentication</module>
         <module>unip-domain</module>
+        <module>unip-sync</module>
     </modules>
 	<dependencies>
 		<dependency>

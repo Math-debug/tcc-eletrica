@@ -1,6 +1,5 @@
 package br.unip.tcc.entity;
 
-import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Column;
@@ -13,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,19 +24,20 @@ import lombok.Setter;
 @Setter 
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name="sync_buffer")
-public class SyncBuffer implements Serializable{
-	
-	private static final long serialVersionUID = -8511083758300064601L;
-	
+@Table(name="sync_offlineequip")
+public class SyncOfflineEquipment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long bufferid;
+	private Long offlineequipid;
+	@ManyToOne
+	@JoinColumn(name = "equipmentid")
+	Equipment equipment;
 	@CreationTimestamp
 	@Column(name="createdat")
 	private Instant createdAt;
-	@Column(name="data")
-	private String data;
-	@Column(name="attempt")
-	private Integer attempt;
+	@Column(name = "active")
+	private Boolean active;
+	@UpdateTimestamp
+	@Column(name="updateat")
+	private Instant updateAt;
 }

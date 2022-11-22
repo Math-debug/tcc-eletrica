@@ -1,5 +1,6 @@
 package br.unip.sync.tcc.service;
 
+import java.net.NoRouteToHostException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,11 +18,14 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import br.unip.tcc.entity.Equipment;
 import br.unip.tcc.entity.SyncBuffer;
 import br.unip.tcc.entity.SyncEquipmentConfig;
+import br.unip.tcc.entity.SyncOfflineEquipment;
 import br.unip.tcc.entity.dto.KeepAliveDTO;
 import br.unip.tcc.repository.SyncBufferRepository;
 import br.unip.tcc.repository.SyncEquipmentConfigRepository;
+import br.unip.tcc.repository.SyncOfflineEquipmentRepository;
 
 @Service
 public class SyncService {
@@ -37,6 +41,9 @@ public class SyncService {
 	@Autowired
 	private SyncBufferRepository syncBufferRepository;
 
+	@Autowired
+	private SyncOfflineEquipmentRepository syncOfflineEquipmentRepository;
+
 	public void sync() {
 
 		final long time = 5000; // a cada X ms
@@ -45,8 +52,7 @@ public class SyncService {
 			public void run() {
 				List<SyncEquipmentConfig> config = syncEquipmentConfigRepository.findAll();
 				List<SyncBuffer> buffers = syncBufferRepository.findByAttemps();
-				
-				for (SyncEquipmentConfig equipment : config) {
+				config.parallelStream().forEach(equipment -> {
 					if (equipment.getActive()) {
 						try {
 							OkHttpClient client = new OkHttpClient();
@@ -56,8 +62,37 @@ public class SyncService {
 							Request request = new Request.Builder().url("http://" + equipment.getIp()).get()
 									.addHeader("cache-control", "no-cache")
 									.addHeader("Accept", "application/json; q=0.5").build();
-
-							Response response = client.newCall(request).execute();
+							Response response = null;
+							try {
+								response = client.newCall(request).execute();
+							} catch (NoRouteToHostException e) {
+								e.printStackTrace();
+								SyncOfflineEquipment syncOfflineEquipment = syncOfflineEquipmentRepository
+										.findByEquipmentAndActive(equipment.getEquipment(), true);
+								if (syncOfflineEquipment == null) {
+									SyncOfflineEquipment offline = new SyncOfflineEquipment();
+									offline.setActive(true);
+									offline.setEquipment(equipment.getEquipment());
+									syncOfflineEquipmentRepository.save(offline);
+								}
+							}
+							if (response.code() != 200) {
+								SyncOfflineEquipment syncOfflineEquipment = syncOfflineEquipmentRepository
+										.findByEquipmentAndActive(equipment.getEquipment(), true);
+								if (syncOfflineEquipment == null) {
+									SyncOfflineEquipment offline = new SyncOfflineEquipment();
+									offline.setActive(true);
+									offline.setEquipment(equipment.getEquipment());
+									syncOfflineEquipmentRepository.save(offline);
+								}
+							} else {
+								SyncOfflineEquipment syncOfflineEquipment = syncOfflineEquipmentRepository
+										.findByEquipmentAndActive(equipment.getEquipment(), true);
+								if (syncOfflineEquipment != null) {
+									syncOfflineEquipment.setActive(false);
+									syncOfflineEquipmentRepository.save(syncOfflineEquipment);
+								}
+							}
 							String json = response.body().string();
 							LOGGER.info(json);
 							try {
@@ -67,28 +102,27 @@ public class SyncService {
 								jmsTemplate.convertAndSend("keepAlive", json);
 							} catch (Exception e) {
 								SyncBuffer buffer = new SyncBuffer();
-								buffer.setEquipment(equipment.getEquipment());
 								buffer.setData(json);
 								buffer.setAttempt(1);
 								syncBufferRepository.save(buffer);
 								e.printStackTrace();
 							}
 						} catch (Exception e) {
-							
+							// Ignorar TimeOut
 						}
 					}
-				}
-				for(SyncBuffer attemp : buffers) {
+				});
+				buffers.parallelStream().forEach(attemp -> {
 					try {
-					ObjectMapper mapper = new ObjectMapper();
-					mapper.registerModule(new JavaTimeModule());
-					mapper.readValue(attemp.getData(), KeepAliveDTO.class);
-					jmsTemplate.convertAndSend("keepAlive", attemp.getData());
-					}catch (Exception e) {
-						attemp.setAttempt(attemp.getAttempt() +1);
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.registerModule(new JavaTimeModule());
+						mapper.readValue(attemp.getData(), KeepAliveDTO.class);
+						jmsTemplate.convertAndSend("keepAlive", attemp.getData());
+					} catch (Exception e) {
+						attemp.setAttempt(attemp.getAttempt() + 1);
 						syncBufferRepository.save(attemp);
 					}
-				}
+				});
 			}
 		};
 		timer.scheduleAtFixedRate(tarefa, time, time);

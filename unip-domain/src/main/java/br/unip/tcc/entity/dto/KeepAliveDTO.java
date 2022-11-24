@@ -23,4 +23,5 @@ public class KeepAliveDTO implements Serializable{
 	private Double potenciaaparente;
 	private Instant createdAt;
 	private EquipmentDTO equipment;
+	private Long bufferid;
 }

@@ -18,7 +18,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import br.unip.tcc.entity.Equipment;
 import br.unip.tcc.entity.SyncBuffer;
 import br.unip.tcc.entity.SyncEquipmentConfig;
 import br.unip.tcc.entity.SyncOfflineEquipment;
@@ -56,8 +55,8 @@ public class SyncService {
 					if (equipment.getActive()) {
 						try {
 							OkHttpClient client = new OkHttpClient();
-							client.setConnectTimeout(15, TimeUnit.SECONDS); // connect timeout
-							client.setReadTimeout(15, TimeUnit.SECONDS); // socket timeout
+							client.setConnectTimeout(10, TimeUnit.SECONDS); // connect timeout
+							client.setReadTimeout(10, TimeUnit.SECONDS); // socket timeout
 
 							Request request = new Request.Builder().url("http://" + equipment.getIp()).get()
 									.addHeader("cache-control", "no-cache")
@@ -116,8 +115,12 @@ public class SyncService {
 					try {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.registerModule(new JavaTimeModule());
-						mapper.readValue(attemp.getData(), KeepAliveDTO.class);
-						jmsTemplate.convertAndSend("keepAlive", attemp.getData());
+						KeepAliveDTO dto = mapper.readValue(attemp.getData(), KeepAliveDTO.class);
+						dto.setBufferid(attemp.getBufferid());
+						ObjectMapper mapper2 = new ObjectMapper();
+						mapper2.registerModule(new JavaTimeModule());
+			            String json = mapper2.writeValueAsString(dto);
+						jmsTemplate.convertAndSend("keepAlive", json);
 					} catch (Exception e) {
 						attemp.setAttempt(attemp.getAttempt() + 1);
 						syncBufferRepository.save(attemp);

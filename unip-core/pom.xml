@@ -18,14 +18,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>br.unip</groupId>
-   			<artifactId>unip-domain</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
+			<artifactId>unip-domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-		<groupId>br.unip</groupId>
-   		<artifactId>Autentication</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
-	</dependency>
+			<groupId>br.unip</groupId>
+			<artifactId>Autentication</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

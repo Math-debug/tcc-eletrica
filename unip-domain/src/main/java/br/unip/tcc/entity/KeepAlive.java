@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +47,7 @@ public class KeepAlive implements Serializable {
 	private Double potenciareativa;
 	@Column(name="potenciaaparente")
 	private Double potenciaaparente;
+	@CreationTimestamp
 	@Column(name="createdat")
 	private Instant createdAt;
 }

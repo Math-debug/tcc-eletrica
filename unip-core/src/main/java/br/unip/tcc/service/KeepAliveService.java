@@ -31,12 +31,14 @@ public class KeepAliveService {
 	public KeepAlive save (KeepAliveDTO dto) {
 	    if(dto.getBufferid() != null) {
 	        Optional<SyncBuffer> optional = syncBufferRepository.findById(dto.getBufferid());
-            if(optional != null) {
+            if(!optional.isEmpty()) {
             SyncBuffer buffer = optional.get();
             dto.setCreatedAt(buffer.getCreatedAt());
             }else {
                 return null;
             }
+	    } else {
+	        dto.setCreatedAt(Instant.now());
 	    }
 		KeepAlive entity =  KeepAliveConverter.convertTo(dto);
 		double fp = 0.8;

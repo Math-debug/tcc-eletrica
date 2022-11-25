@@ -42,8 +42,11 @@ public class MessageListenerComponent {
 
             keepAliveService.save(dto);
             if(dto.getBufferid() != null) {
-            SyncBuffer buffer = syncBufferRepository.findById(dto.getBufferid()).get();
-                syncBufferRepository.delete(buffer);
+                Optional<SyncBuffer> optional = syncBufferRepository.findById(dto.getBufferid());
+                if(!optional.isEmpty()) {
+                    SyncBuffer buffer = optional.get();
+                    syncBufferRepository.delete(buffer);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,7 +56,7 @@ public class MessageListenerComponent {
             KeepAliveDTO dto = mapper.readValue(json,KeepAliveDTO.class);
             Optional<SyncBuffer> optional = syncBufferRepository.findById(dto.getBufferid());
             SyncBuffer buffer = null;
-            if(optional != null) {
+            if(!optional.isEmpty()) {
                 buffer = optional.get();
             }
             if (buffer == null) {

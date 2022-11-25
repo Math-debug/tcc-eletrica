@@ -47,7 +47,6 @@ public class KeepAlive implements Serializable {
 	private Double potenciareativa;
 	@Column(name="potenciaaparente")
 	private Double potenciaaparente;
-	@CreationTimestamp
 	@Column(name="createdat")
 	private Instant createdAt;
 }

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,7 @@ public class SyncService {
 	private SyncOfflineEquipmentRepository syncOfflineEquipmentRepository;
 
 	@Scheduled(fixedDelayString = "${sync.time}")
+	@Async
 	public void sync() {
 		List<SyncEquipmentConfig> config = syncEquipmentConfigRepository.findAll();
 		List<SyncBuffer> buffers = syncBufferRepository.findByAttemps();

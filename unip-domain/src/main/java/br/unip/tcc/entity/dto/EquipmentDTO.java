@@ -19,4 +19,5 @@ public class EquipmentDTO implements Serializable{
 	private Double nominalCurrent;
 	private String name;
 	private String description;
+	private Boolean active;
 }

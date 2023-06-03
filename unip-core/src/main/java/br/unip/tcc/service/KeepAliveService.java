@@ -7,9 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.unip.tcc.converver.EquipmentConverter;
 import br.unip.tcc.converver.KeepAliveConverter;
+import br.unip.tcc.entity.Equipment;
 import br.unip.tcc.entity.KeepAlive;
 import br.unip.tcc.entity.SyncBuffer;
+import br.unip.tcc.entity.dto.EquipmentDTO;
 import br.unip.tcc.entity.dto.KeepAliveDTO;
 import br.unip.tcc.repository.KeepAliveRepository;
 import br.unip.tcc.repository.SyncBufferRepository;
@@ -21,6 +24,9 @@ public class KeepAliveService {
 	
 	@Autowired
 	SyncBufferRepository syncBufferRepository;
+	
+	@Autowired
+	EquipmentService equipmentService;
 	
 	public List<KeepAlive> findAll(){
 		return keepAliveRepository.findAll();
@@ -41,11 +47,12 @@ public class KeepAliveService {
 	        dto.setCreatedAt(Instant.now());
 	    }
 		KeepAlive entity =  KeepAliveConverter.convertTo(dto);
-		double fp = 0.8;
-		entity.setFp(fp);
-		entity.setPotenciaaparente(entity.getVoltage() * entity.getCurrent());
-		entity.setPotenciaativa(entity.getPotenciaaparente() * fp);
-		entity.setPotenciareativa(Math.sqrt(Math.pow(entity.getPotenciaaparente(),2) - Math.pow(entity.getPotenciaativa(), 2)));
-		return keepAliveRepository.save(entity);
+		KeepAlive keepAlive = keepAliveRepository.save(entity);
+		Equipment equipment = equipmentService.findById(keepAlive.getKeepaliveid());
+		if(!equipment.getActive()) {
+		    equipment.setActive(true);
+		    equipmentService.save(EquipmentConverter.convertTo(equipment));
+		}
+		return keepAlive;
 	}
 }

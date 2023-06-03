@@ -22,6 +22,9 @@ public class EquipmentService {
 		return equipmentRepository.findById(id).get();
 	}
 	public Equipment save (EquipmentDTO dto) {
+	    if (dto.getId() == null) {
+	        dto.setActive(false);
+	    }
 		return equipmentRepository.save(EquipmentConverter.convertTo(dto));
 	}
 }

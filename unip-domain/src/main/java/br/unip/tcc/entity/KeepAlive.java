@@ -39,14 +39,6 @@ public class KeepAlive implements Serializable {
 	private Double voltage;
 	@Column(name="current")
 	private Double current;
-	@Column(name="fp")
-	private Double fp;
-	@Column(name="potenciaativa")
-	private Double potenciaativa;
-	@Column(name="potenciareativa")
-	private Double potenciareativa;
-	@Column(name="potenciaaparente")
-	private Double potenciaaparente;
 	@Column(name="createdat")
 	private Instant createdAt;
 }

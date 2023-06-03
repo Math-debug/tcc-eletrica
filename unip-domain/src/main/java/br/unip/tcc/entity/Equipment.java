@@ -39,4 +39,6 @@ public class Equipment implements Serializable {
 	private String name;
 	@Column(name="description")
 	private String description;
+	@Column(name="active")
+	private Boolean active;
 }

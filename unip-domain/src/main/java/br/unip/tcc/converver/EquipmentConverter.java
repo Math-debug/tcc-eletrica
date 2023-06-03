@@ -13,6 +13,7 @@ public class EquipmentConverter {
 		entity.setName(dto.getName());
 		entity.setNominalCurrent(dto.getNominalCurrent());
 		entity.setVoltage(dto.getVoltage());
+		entity.setActive(dto.getActive());
 		return entity;
 	}
 	
@@ -24,6 +25,7 @@ public class EquipmentConverter {
 		dto.setName(entity.getName());
 		dto.setNominalCurrent(entity.getNominalCurrent());
 		dto.setVoltage(entity.getVoltage());
+		dto.setActive(entity.getActive());
 		return dto;
 	}
 

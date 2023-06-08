@@ -26,38 +26,38 @@ public class KeepAliveConverter {
 		return dto;
 	}
 
-	public static Double calculateCurrent(Current current, Integer type) {
+	public static Double calculateCurrent(Current current, String type) {
 
 		if (type.equals(KeepAliveDTO.TRIFASICO)) {
-			if (current.getCurrent1() != null && current.getCurrent1() > 0) {
-				return current.getCurrent1();
-			} else if (current.getCurrent2() != null && current.getCurrent2() > 0) {
-				return current.getCurrent2();
+			if (current.getA() != null && current.getA() > 0) {
+				return current.getA();
+			} else if (current.getB() != null && current.getB() > 0) {
+				return current.getB();
 			} else {
-				return current.getCurrent3();
+				return current.getC();
 			}
 		} else if(type.equals(KeepAliveDTO.BIFASICO)) {
-			if (current.getCurrent1() != null && current.getCurrent1() > 0) {
-				return current.getCurrent1();
+			if (current.getA() != null && current.getA() > 0) {
+				return current.getA();
 			} else {
-				return current.getCurrent2();
+				return current.getB();
 			}
 		} else {
-			return current.getCurrent1();
+			return current.getA();
 		}
 	}
 
-	public static Double calculateVoltage(Voltage voltage, Integer type) {
+	public static Double calculateVoltage(Voltage voltage, String type) {
 		if (type.equals(KeepAliveDTO.TRIFASICO)) {
-			if (voltage.getFase1fase2() != null && voltage.getFase1fase2() > 0) {
-				return voltage.getFase1fase2();
-			} else if (voltage.getFase2fase3() != null && voltage.getFase2fase3() > 0) {
-				return voltage.getFase2fase3();
+			if (voltage.getAb() != null && voltage.getAb() > 0) {
+				return voltage.getAb();
+			} else if (voltage.getBc() != null && voltage.getBc() > 0) {
+				return voltage.getBc();
 			} else {
-				return voltage.getFase3fase1();
+				return voltage.getCa();
 			}
 		} else {
-			return voltage.getFase1fase2();
+			return voltage.getAb();
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package br.unip.tcc.converver;
 
 import br.unip.tcc.entity.Equipment;
+import br.unip.tcc.entity.SyncEquipmentConfig;
 import br.unip.tcc.entity.dto.EquipmentDTO;
 
 public class EquipmentConverter {
@@ -25,7 +26,21 @@ public class EquipmentConverter {
 		dto.setName(entity.getName());
 		dto.setNominalCurrent(entity.getNominalCurrent());
 		dto.setVoltage(entity.getVoltage());
+		dto.setActive(entity.getActive() == null ? false : entity.getActive());
+		return dto;
+	}
+	
+	public static EquipmentDTO convertTo (Equipment entity, SyncEquipmentConfig config) {
+		EquipmentDTO dto = new EquipmentDTO();
+		dto.setId(entity.getEquipmentid());
+		dto.setDescription(entity.getDescription());
+		dto.setEquipmentType(EquipmentTypeConverter.convertTo(entity.getEquipmentType()));
+		dto.setName(entity.getName());
+		dto.setNominalCurrent(entity.getNominalCurrent());
+		dto.setVoltage(entity.getVoltage());
 		dto.setActive(entity.getActive());
+		dto.setSyncronized(config.getActive());
+		dto.setIp(config.getIp());
 		return dto;
 	}
 

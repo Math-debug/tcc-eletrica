@@ -12,9 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class KeepAliveDTO implements Serializable{
 	
-	public static final Integer MONOFASICO = 1;
-	public static final Integer BIFASICO = 2;
-	public static final Integer TRIFASICO = 3;
+	public static final String MONOFASICO = "M";
+	public static final String BIFASICO = "B";
+	public static final String TRIFASICO = "T";
 	
 	private static final long serialVersionUID = -2989840500215423036L;
 	
@@ -26,5 +26,5 @@ public class KeepAliveDTO implements Serializable{
 	private Instant createdAt;
 	private EquipmentDTO equipment;
 	private Long bufferid;
-	private Integer type;
+	private String type;
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Current implements Serializable{
 	
 	private static final long serialVersionUID = 2704466153977437720L;
-	Double current1;
-	Double current2;
-	Double current3;
+	Double a;
+	Double b;
+	Double c;
 }

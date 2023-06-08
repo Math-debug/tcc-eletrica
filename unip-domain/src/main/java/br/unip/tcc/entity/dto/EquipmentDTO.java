@@ -20,4 +20,6 @@ public class EquipmentDTO implements Serializable{
 	private String name;
 	private String description;
 	private Boolean active;
+	private Boolean syncronized;
+	private String ip;
 }

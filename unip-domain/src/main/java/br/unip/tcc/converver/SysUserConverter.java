@@ -1,5 +1,7 @@
 package br.unip.tcc.converver;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import br.unip.tcc.entity.SysUser;
 import br.unip.tcc.entity.dto.SysUserDTO;
 
@@ -7,7 +9,7 @@ public class SysUserConverter {
 	
 	public static SysUser convertTo (SysUserDTO dto) {
 		SysUser entity = new SysUser();
-		entity.setPassword(dto.getPassword());
+		entity.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
 		entity.setSysuserid(dto.getId());
 		entity.setUserName(dto.getUserName());
 		entity.setSysUserGroup(UserGroupConverter.convertTo(dto.getSysUserGroup()));

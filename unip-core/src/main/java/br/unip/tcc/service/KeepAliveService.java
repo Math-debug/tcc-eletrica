@@ -48,7 +48,7 @@ public class KeepAliveService {
 	    }
 		KeepAlive entity =  KeepAliveConverter.convertTo(dto);
 		KeepAlive keepAlive = keepAliveRepository.save(entity);
-		Equipment equipment = equipmentService.findById(keepAlive.getKeepaliveid());
+		Equipment equipment = equipmentService.findById(keepAlive.getEquipment().getEquipmentid());
 		if(!equipment.getActive()) {
 		    equipment.setActive(true);
 		    equipmentService.save(EquipmentConverter.convertTo(equipment));

@@ -30,7 +30,7 @@ public class MessageListenerComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageListenerComponent.class);
 
     @SuppressWarnings("null")
-    @JmsListener(destination = "keepAlive")
+    @JmsListener(destination = "keepAlive", concurrency = "1")
     public void onReceiverQueue(String json) throws JsonMappingException, JsonProcessingException {
         try {
             

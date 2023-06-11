@@ -1,5 +1,7 @@
 package br.unip.tcc.jms;
 
+import java.util.Arrays;
+
 import javax.jms.ConnectionFactory;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -28,7 +30,9 @@ public class JmsConfig {
     @Bean
     public ActiveMQConnectionFactory connectionFactory() {
         if ( "".equals(user) ) {
-            return new ActiveMQConnectionFactory(brokerUrl);
+            ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(brokerUrl);
+            factory.setTrustedPackages(Arrays.asList("br.unip.tcc.proto"));
+            return factory;
         }
         return new ActiveMQConnectionFactory(user, password, brokerUrl);
     }

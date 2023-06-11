@@ -20,7 +20,6 @@ import br.unip.sync.tcc.service.SyncService;
 @EntityScan("br.unip.tcc.entity")
 @EnableJpaRepositories(basePackages = {"br.unip.tcc.repository"})
 @EnableScheduling
-@EnableAsync
 public class UnipSyncApplication {
 	
 	@Autowired

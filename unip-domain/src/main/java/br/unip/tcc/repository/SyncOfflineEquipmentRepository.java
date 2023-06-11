@@ -6,5 +6,6 @@ import br.unip.tcc.entity.Equipment;
 import br.unip.tcc.entity.SyncOfflineEquipment;
 
 public interface SyncOfflineEquipmentRepository extends JpaRepository<SyncOfflineEquipment, Long>{
-	SyncOfflineEquipment findByEquipmentAndActive(Equipment equipment, Boolean active);
+	
+	SyncOfflineEquipment findByEquipmentEquipmentidAndActive(Long id, Boolean active);
 }

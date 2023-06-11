@@ -26,7 +26,7 @@ public class KeepAliveConverter {
 		return dto;
 	}
 
-	public static Double calculateCurrent(Current current, String type) {
+	public static Float calculateCurrent(Current current, String type) {
 
 		if (type.equals(KeepAliveDTO.TRIFASICO)) {
 			if (current.getA() != null && current.getA() > 0) {
@@ -47,7 +47,7 @@ public class KeepAliveConverter {
 		}
 	}
 
-	public static Double calculateVoltage(Voltage voltage, String type) {
+	public static Float calculateVoltage(Voltage voltage, String type) {
 		if (type.equals(KeepAliveDTO.TRIFASICO)) {
 			if (voltage.getAb() != null && voltage.getAb() > 0) {
 				return voltage.getAb();

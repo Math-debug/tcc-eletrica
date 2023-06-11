@@ -22,6 +22,7 @@ import br.unip.tcc.entity.SyncBuffer;
 import br.unip.tcc.entity.SyncEquipmentConfig;
 import br.unip.tcc.entity.SyncOfflineEquipment;
 import br.unip.tcc.entity.dto.KeepAliveDTO;
+import br.unip.tcc.proto.converter.KeepAliveProtoConverter;
 import br.unip.tcc.repository.SyncBufferRepository;
 import br.unip.tcc.repository.SyncEquipmentConfigRepository;
 import br.unip.tcc.repository.SyncOfflineEquipmentRepository;
@@ -44,7 +45,6 @@ public class SyncService {
 	private SyncOfflineEquipmentRepository syncOfflineEquipmentRepository;
 
 	@Scheduled(fixedDelayString = "${sync.time}")
-	@Async
 	public void sync() {
 		List<SyncEquipmentConfig> config = syncEquipmentConfigRepository.findAll();
 		List<SyncBuffer> buffers = syncBufferRepository.findByAttemps();
@@ -64,7 +64,7 @@ public class SyncService {
 					} catch (NoRouteToHostException e) {
 						e.printStackTrace();
 						SyncOfflineEquipment syncOfflineEquipment = syncOfflineEquipmentRepository
-								.findByEquipmentAndActive(equipment.getEquipment(), true);
+								.findByEquipmentEquipmentidAndActive(equipment.getEquipment().getEquipmentid(), true);
 						if (syncOfflineEquipment == null) {
 							SyncOfflineEquipment offline = new SyncOfflineEquipment();
 							offline.setActive(true);
@@ -74,7 +74,7 @@ public class SyncService {
 					}
 					if (response.code() != 200) {
 						SyncOfflineEquipment syncOfflineEquipment = syncOfflineEquipmentRepository
-								.findByEquipmentAndActive(equipment.getEquipment(), true);
+								.findByEquipmentEquipmentidAndActive(equipment.getEquipment().getEquipmentid(), true);
 						if (syncOfflineEquipment == null) {
 							SyncOfflineEquipment offline = new SyncOfflineEquipment();
 							offline.setActive(true);
@@ -83,7 +83,7 @@ public class SyncService {
 						}
 					} else {
 						SyncOfflineEquipment syncOfflineEquipment = syncOfflineEquipmentRepository
-								.findByEquipmentAndActive(equipment.getEquipment(), true);
+								.findByEquipmentEquipmentidAndActive(equipment.getEquipment().getEquipmentid(), true);
 						if (syncOfflineEquipment != null) {
 							syncOfflineEquipment.setActive(false);
 							syncOfflineEquipmentRepository.save(syncOfflineEquipment);
@@ -94,8 +94,8 @@ public class SyncService {
 					try {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.registerModule(new JavaTimeModule());
-						mapper.readValue(json, KeepAliveDTO.class);
-						jmsTemplate.convertAndSend("keepAlive", json);
+						KeepAliveDTO dto = mapper.readValue(json, KeepAliveDTO.class);
+						jmsTemplate.convertAndSend("keepAlive", KeepAliveProtoConverter.convertTO(dto).toByteArray());
 					} catch (Exception e) {
 						SyncBuffer buffer = new SyncBuffer();
 						buffer.setData(json);

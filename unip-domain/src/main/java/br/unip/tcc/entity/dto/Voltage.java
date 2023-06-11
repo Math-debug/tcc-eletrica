@@ -13,7 +13,7 @@ public class Voltage implements Serializable{
 	
 	private static final long serialVersionUID = 8668014860428191385L;
 	
-	Double ab;
-	Double bc;
-	Double ca;
+	Float ab;
+	Float bc;
+	Float ca;
 }

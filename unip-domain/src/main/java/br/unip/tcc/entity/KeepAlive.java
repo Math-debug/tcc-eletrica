@@ -36,9 +36,9 @@ public class KeepAlive implements Serializable {
 	@JoinColumn(name = "equipmentid")
 	private Equipment equipment;
 	@Column(name="voltage")
-	private Double voltage;
+	private Float voltage;
 	@Column(name="current")
-	private Double current;
+	private Float current;
 	@Column(name="createdat")
 	private Instant createdAt;
 }

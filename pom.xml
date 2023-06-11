@@ -10,17 +10,17 @@
 	<groupId>br.unip</groupId>
 	<artifactId>tccws</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+	<packaging>pom</packaging>
 	<name>unip</name>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
-    <modules>
-        <module>unip-core</module>
-        <module>autentication</module>
-        <module>unip-domain</module>
-        <module>unip-sync</module>
-    </modules>
+	<modules>
+		<module>unip-core</module>
+		<module>autentication</module>
+		<module>unip-domain</module>
+		<module>unip-sync</module>
+	</modules>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -30,7 +30,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.23.2</version>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

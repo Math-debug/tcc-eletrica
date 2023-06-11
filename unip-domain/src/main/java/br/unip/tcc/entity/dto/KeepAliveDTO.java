@@ -19,8 +19,8 @@ public class KeepAliveDTO implements Serializable{
 	private static final long serialVersionUID = -2989840500215423036L;
 	
 	private Long id;
-	private Double voltageEf;
-	private Double currentEf;
+	private Float voltageEf;
+	private Float currentEf;
 	private Voltage voltage;
 	private Current current;
 	private Instant createdAt;

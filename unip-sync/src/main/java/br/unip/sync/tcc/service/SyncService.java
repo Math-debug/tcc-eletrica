@@ -1,6 +1,7 @@
 package br.unip.sync.tcc.service;
 
 import java.net.NoRouteToHostException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -53,7 +54,7 @@ public class SyncService {
 				try {
 					OkHttpClient client = new OkHttpClient();
 					client.setConnectTimeout(10, TimeUnit.SECONDS); // connect timeout
-					client.setReadTimeout(10, TimeUnit.SECONDS); // socket timeout
+					client.setReadTimeout(3500, TimeUnit.MILLISECONDS); // socket timeout
 
 					Request request = new Request.Builder().url("http://" + equipment.getIp()).get()
 							.addHeader("cache-control", "no-cache").addHeader("Accept", "application/json; q=0.5")
@@ -62,7 +63,7 @@ public class SyncService {
 					try {
 						response = client.newCall(request).execute();
 					} catch (NoRouteToHostException e) {
-						e.printStackTrace();
+						LOGGER.error("dispositivo não localizado em: {}",equipment.getIp());
 						SyncOfflineEquipment syncOfflineEquipment = syncOfflineEquipmentRepository
 								.findByEquipmentEquipmentidAndActive(equipment.getEquipment().getEquipmentid(), true);
 						if (syncOfflineEquipment == null) {
@@ -71,6 +72,8 @@ public class SyncService {
 							offline.setEquipment(equipment.getEquipment());
 							syncOfflineEquipmentRepository.save(offline);
 						}
+					} catch (SocketTimeoutException e2) {
+						return;
 					}
 					if (response.code() != 200) {
 						SyncOfflineEquipment syncOfflineEquipment = syncOfflineEquipmentRepository

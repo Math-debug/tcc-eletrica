@@ -1,1 +1,0 @@
-mvn clean install -DskipTests && docker push mxavier27/tcc-eletrica-sync:0.0.1-SNAPSHOT

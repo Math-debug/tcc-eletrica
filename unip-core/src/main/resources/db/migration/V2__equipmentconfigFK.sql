@@ -1,1 +1,0 @@
-ALTER TABLE anom_anomalyconfighistory ADD FOREIGN KEY (equipmentid) REFERENCES tcc_equipment (equipmentid);

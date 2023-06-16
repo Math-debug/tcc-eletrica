@@ -1,5 +1,0 @@
-br/unip/tcc/security/UserAuthentication.class
-br/unip/tcc/security/JWTAuthenticationFilter.class
-br/unip/tcc/security/TokenAuthenticationService.class
-br/unip/tcc/security/WebSecurityConfig.class
-br/unip/tcc/security/JWTLoginFilter.class

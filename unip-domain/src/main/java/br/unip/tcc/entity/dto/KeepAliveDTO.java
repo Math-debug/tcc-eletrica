@@ -21,8 +21,8 @@ public class KeepAliveDTO implements Serializable{
 	private Long id;
 	private Float voltageEf;
 	private Float currentEf;
-	private Voltage voltage;
-	private Current current;
+	private VoltageDTO voltage;
+	private CurrentDTO current;
 	private Instant createdAt;
 	private EquipmentDTO equipment;
 	private Long bufferid;

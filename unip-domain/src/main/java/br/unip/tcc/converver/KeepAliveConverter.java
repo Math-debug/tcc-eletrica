@@ -1,9 +1,9 @@
 package br.unip.tcc.converver;
 
 import br.unip.tcc.entity.KeepAlive;
-import br.unip.tcc.entity.dto.Current;
+import br.unip.tcc.entity.dto.CurrentDTO;
 import br.unip.tcc.entity.dto.KeepAliveDTO;
-import br.unip.tcc.entity.dto.Voltage;
+import br.unip.tcc.entity.dto.VoltageDTO;
 
 public class KeepAliveConverter {
 	public static KeepAlive convertTo(KeepAliveDTO dto) {
@@ -26,7 +26,7 @@ public class KeepAliveConverter {
 		return dto;
 	}
 
-	public static Float calculateCurrent(Current current, String type) {
+	public static Float calculateCurrent(CurrentDTO current, String type) {
 
 		if (type.equals(KeepAliveDTO.TRIFASICO)) {
 			if (current.getA() != null && current.getA() > 0) {
@@ -47,7 +47,7 @@ public class KeepAliveConverter {
 		}
 	}
 
-	public static Float calculateVoltage(Voltage voltage, String type) {
+	public static Float calculateVoltage(VoltageDTO voltage, String type) {
 		if (type.equals(KeepAliveDTO.TRIFASICO)) {
 			if (voltage.getAb() != null && voltage.getAb() > 0) {
 				return voltage.getAb();

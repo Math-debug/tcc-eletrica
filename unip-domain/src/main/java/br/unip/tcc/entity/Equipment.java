@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -41,4 +42,9 @@ public class Equipment implements Serializable {
 	private String description;
 	@Column(name="active")
 	private Boolean active;
+	@Column(name="verify")
+	private Boolean verify;
+	@OneToOne
+	@JoinColumn(name = "anomalyconfigid")
+	private AnomalyConfig anomalyconfig;
 }

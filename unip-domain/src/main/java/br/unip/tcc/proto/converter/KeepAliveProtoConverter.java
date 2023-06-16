@@ -2,10 +2,10 @@ package br.unip.tcc.proto.converter;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import br.unip.tcc.entity.dto.Current;
+import br.unip.tcc.entity.dto.CurrentDTO;
 import br.unip.tcc.entity.dto.EquipmentDTO;
 import br.unip.tcc.entity.dto.KeepAliveDTO;
-import br.unip.tcc.entity.dto.Voltage;
+import br.unip.tcc.entity.dto.VoltageDTO;
 import br.unip.tcc.proto.KeepAliveProto;
 import br.unip.tcc.proto.KeepAliveProto.KeepAlive;
 
@@ -36,8 +36,8 @@ public class KeepAliveProtoConverter {
 		EquipmentDTO equipment = new EquipmentDTO();
 		equipment.setId(new Long(proto.getEquipment().getId()));
 		dto.setEquipment(equipment);
-		Current current = new Current();
-		Voltage voltage = new Voltage();
+		CurrentDTO current = new CurrentDTO();
+		VoltageDTO voltage = new VoltageDTO();
 		current.setA(proto.getCurrent().getA());
 		current.setB(proto.getCurrent().getB());
 		current.setC(proto.getCurrent().getC());

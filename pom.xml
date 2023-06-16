@@ -20,6 +20,7 @@
 		<module>autentication</module>
 		<module>unip-domain</module>
 		<module>unip-sync</module>
+		<module>unip-anomaly</module>
 	</modules>
 	<dependencies>
 		<dependency>

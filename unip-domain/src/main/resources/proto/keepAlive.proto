@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+package br.unip.tcc.proto;
+option java_outer_classname = "KeepAliveProto";
+
+message Equipment {
+  required int32 id = 1;
+}
+
+message Current {
+  required float a = 1;
+  required float b = 2;
+  required float c = 3;
+}
+
+message Voltage {
+  required float ab = 1;
+  required float bc = 2;
+  required float ca = 3;
+}
+
+message KeepAlive {
+  required Equipment equipment = 1;
+  required Current current = 2;
+  required Voltage voltage = 3;
+  required string type = 4;
+}

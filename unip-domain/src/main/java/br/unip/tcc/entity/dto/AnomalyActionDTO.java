@@ -13,7 +13,7 @@ public class AnomalyActionDTO implements Serializable{
 
 	private static final long serialVersionUID = 4104139498671002690L;
 	private Long actionid;
-	private SysUserDTO userid;
+	private SysUserDTO user;
 	private String observation;
 	private AnomalyDTO anomaly;
 }

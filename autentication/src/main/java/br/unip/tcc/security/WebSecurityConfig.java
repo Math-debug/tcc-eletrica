@@ -27,7 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.cors().and().csrf().disable().authorizeRequests()
-				.antMatchers(HttpMethod.POST,"/keepalive").permitAll()
 				.antMatchers(HttpMethod.GET,"/swagger-ui.html").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll().anyRequest().authenticated().and()
 				.addFilterBefore(new JWTLoginFilter("/user/login", authenticationManager()),

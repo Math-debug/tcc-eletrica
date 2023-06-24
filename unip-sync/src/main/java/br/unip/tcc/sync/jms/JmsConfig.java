@@ -1,4 +1,4 @@
-package br.unip.sync.tcc.jms;
+package br.unip.tcc.sync.jms;
 
 import javax.jms.ConnectionFactory;
 

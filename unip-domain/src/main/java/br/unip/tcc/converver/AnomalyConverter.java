@@ -11,7 +11,7 @@ public class AnomalyConverter {
 		entity.setClosedat(dto.getClosedat());
 		entity.setCreatedat(dto.getCreatedat());
 		entity.setDescription(dto.getDescription());
-		entity.setKeepAlive(KeepAliveConverter.convertTo(dto.getKeepAlive()));
+		entity.setKeepAlive(KeepAliveConverter.converToAnomaly(dto.getKeepAlive()));
 		entity.setLasttreatment(dto.getLasttreatment());
 		entity.setNormalizedat(dto.getNormalizedat());
 		entity.setStatusid(dto.getStatusid());

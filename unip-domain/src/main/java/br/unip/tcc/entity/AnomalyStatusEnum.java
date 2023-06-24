@@ -1,10 +1,10 @@
 package br.unip.tcc.entity;
 
 public enum AnomalyStatusEnum {
-	OPEN(1),
-	TRATED(2),
-	CLOSED(3),
-	NORMALIZED(4);
+	OPEN(0),
+	TRATED(1),
+	CLOSED(2),
+	NORMALIZED(3);
 	
 	public int anomalyType;
 

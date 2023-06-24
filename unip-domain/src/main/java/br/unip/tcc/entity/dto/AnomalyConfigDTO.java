@@ -17,7 +17,7 @@ public class AnomalyConfigDTO implements Serializable{
 	
 	private Long anomalyconfigid;
 	private Instant createdat;
-	private EquipmentDTO equipmentid;
+	private EquipmentDTO equipment;
 	private Float vmax;
 	private Float vmin;
 	private Float imax;

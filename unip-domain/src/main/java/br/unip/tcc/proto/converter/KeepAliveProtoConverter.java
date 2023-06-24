@@ -27,6 +27,9 @@ public class KeepAliveProtoConverter {
 		builderKeepAlive.setCurrent(builderCurrent);
 		builderKeepAlive.setVoltage(builderVoltage);
 		builderKeepAlive.setType(dto.getType());
+		if(dto.getId() != null) {
+			builderKeepAlive.setId(dto.getId().intValue());
+		}
 		return builderKeepAlive.build();
 	}
 	
@@ -47,6 +50,9 @@ public class KeepAliveProtoConverter {
 		dto.setCurrent(current);
 		dto.setVoltage(voltage);
 		dto.setType(proto.getType());
+		if(proto.getId() > 0) {
+			dto.setId(new Long(proto.getId()));
+		}
 		return dto;
 	}
 }

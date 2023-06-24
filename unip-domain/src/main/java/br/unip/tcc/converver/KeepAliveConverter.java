@@ -15,6 +15,16 @@ public class KeepAliveConverter {
 		entity.setVoltage(calculateVoltage(dto.getVoltage(), dto.getType()));
 		return entity;
 	}
+	
+	public static KeepAlive converToAnomaly(KeepAliveDTO dto) {
+		KeepAlive entity = new KeepAlive();
+		entity.setKeepaliveid(dto.getId());
+		entity.setCreatedAt(dto.getCreatedAt());
+		entity.setCurrent(dto.getCurrentEf());
+		entity.setEquipment(EquipmentConverter.convertTo(dto.getEquipment()));
+		entity.setVoltage(dto.getVoltageEf());
+		return entity;
+	}
 
 	public static KeepAliveDTO convertTo(KeepAlive entity) {
 		KeepAliveDTO dto = new KeepAliveDTO();

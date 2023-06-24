@@ -6,14 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.unip.tcc.converver.EquipmentConverter;
+import br.unip.tcc.entity.AnomalyConfig;
 import br.unip.tcc.entity.Equipment;
 import br.unip.tcc.entity.dto.EquipmentDTO;
+import br.unip.tcc.repository.AnomalyConfigRepository;
 import br.unip.tcc.repository.EquipmentRepository;
 
 @Service
 public class EquipmentService {
 	@Autowired
 	EquipmentRepository equipmentRepository;
+	
+	@Autowired
+    AnomalyConfigRepository anomalyConfigRepository;
 	
 	public List<Equipment> findAll(){
 		return equipmentRepository.findAll();
@@ -24,7 +29,14 @@ public class EquipmentService {
 	public Equipment save (EquipmentDTO dto) {
 	    if (dto.getId() == null) {
 	        dto.setActive(false);
+	        return equipmentRepository.save(EquipmentConverter.convertTo(dto));
+	    }else {
+	        AnomalyConfig config =  anomalyConfigRepository.findByEquipmentEquipmentid(dto.getId());
+	        if (config != null) {
+	            return equipmentRepository.save(EquipmentConverter.convertToSaveConfigs(dto,config));
+	        }else {
+	            return equipmentRepository.save(EquipmentConverter.convertTo(dto));
+	        }
 	    }
-		return equipmentRepository.save(EquipmentConverter.convertTo(dto));
 	}
 }

@@ -33,7 +33,7 @@ public class AnomalyAction implements Serializable {
 	private Long actionid;
 	@ManyToOne
 	@JoinColumn(name = "userid")
-	SysUser userid;
+	SysUser user;
 	@CreationTimestamp
 	private Instant createdat;
 	@Column(length = 1000)

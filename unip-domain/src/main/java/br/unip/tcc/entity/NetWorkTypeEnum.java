@@ -1,7 +1,7 @@
 package br.unip.tcc.entity;
 
 public enum NetWorkTypeEnum {
-	MONOPHASIC(1), BIPHASIC(2), TRIPHASIC(3);
+	MONOPHASIC(0), BIPHASIC(1), TRIPHASIC(2);
 
 	public int networkType;
 

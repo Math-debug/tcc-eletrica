@@ -7,5 +7,5 @@ import br.unip.tcc.entity.AnomalyConfig;
 
 @Repository
 public interface AnomalyConfigRepository extends JpaRepository<AnomalyConfig, Long>{
-
+	public AnomalyConfig findByEquipmentEquipmentid(Long equipmentid);
 }

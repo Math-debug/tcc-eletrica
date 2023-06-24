@@ -1,4 +1,4 @@
-package br.unip.sync.tcc.service;
+package br.unip.tcc.sync.service;
 
 import java.net.NoRouteToHostException;
 import java.net.SocketTimeoutException;

@@ -24,4 +24,5 @@ message KeepAlive {
   required Current current = 2;
   required Voltage voltage = 3;
   required string type = 4;
+  optional int32 id = 5;
 }

@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,6 +43,7 @@ public class Anomaly implements Serializable{
 	@Column(length = 1000)
 	String description;
 	private AnomalyStatusEnum statusid;
+	@CreationTimestamp
 	private Instant createdat;
 	private Instant lasttreatment;
 	private Instant normalizedat;

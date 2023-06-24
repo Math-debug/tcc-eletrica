@@ -22,4 +22,5 @@ public class EquipmentDTO implements Serializable{
 	private Boolean active;
 	private Boolean syncronized;
 	private String ip;
+	private Boolean verify;
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import br.unip.tcc.converver.EquipmentConverter;
@@ -14,6 +15,7 @@ import br.unip.tcc.entity.KeepAlive;
 import br.unip.tcc.entity.SyncBuffer;
 import br.unip.tcc.entity.dto.EquipmentDTO;
 import br.unip.tcc.entity.dto.KeepAliveDTO;
+import br.unip.tcc.proto.converter.KeepAliveProtoConverter;
 import br.unip.tcc.repository.KeepAliveRepository;
 import br.unip.tcc.repository.SyncBufferRepository;
 
@@ -27,6 +29,9 @@ public class KeepAliveService {
 	
 	@Autowired
 	EquipmentService equipmentService;
+	
+	@Autowired
+    private JmsTemplate jmsTemplate;
 	
 	public List<KeepAlive> findAll(){
 		return keepAliveRepository.findAll();
@@ -50,11 +55,16 @@ public class KeepAliveService {
 	    dto.setEquipment(EquipmentConverter.convertTo(equipment));
 		KeepAlive entity =  KeepAliveConverter.convertTo(dto);
 		KeepAlive keepAlive = keepAliveRepository.save(entity);
-		
+		dto.setId(keepAlive.getKeepaliveid());
 		if(!equipment.getActive()) {
 		    equipment.setActive(true);
 		    equipmentService.save(EquipmentConverter.convertTo(equipment));
 		}
+		
+		if(equipment.getVerify() != null || equipment.getVerify()) {
+		    jmsTemplate.convertAndSend("anomalyAnalyse", KeepAliveProtoConverter.convertTO(dto).toByteArray());
+		}
+		
 		return keepAlive;
 	}
 }

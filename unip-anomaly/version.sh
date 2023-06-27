@@ -1,0 +1,1 @@
+mvn clean install -DskipTests && docker push mxavier27/tcc-eletrica-anomaly:0.0.1-SNAPSHOT

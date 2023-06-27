@@ -9,7 +9,7 @@ public class AnomalyActionConverter {
 		entity.setActionid(dto.getActionid());
 		entity.setAnomaly(AnomalyConverter.convertTo(dto.getAnomaly()));
 		entity.setObservation(dto.getObservation());
-		entity.setUser(SysUserConverter.convertTo(dto.getUser()));
+		entity.setUser(SysUserConverter.convertToGetUser(dto.getUser()));
 		return entity;
 	}
 	public static AnomalyActionDTO convertTo( AnomalyAction entity ) {

@@ -16,6 +16,14 @@ public class SysUserConverter {
 		return entity;
 	}
 	
+	public static SysUser convertToGetUser (SysUserDTO dto) {
+		SysUser entity = new SysUser();
+		entity.setSysuserid(dto.getId());
+		entity.setUserName(dto.getUserName());
+		entity.setSysUserGroup(UserGroupConverter.convertTo(dto.getSysUserGroup()));
+		return entity;
+	}
+	
 	public static SysUserDTO convertTo (SysUser entity) {
 		SysUserDTO dto = new SysUserDTO();
 		dto.setPassword(entity.getPassword());

@@ -38,9 +38,15 @@ public class AnomalyActionController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<AnomalyActionDTO> findById(@PathVariable Long id) {
-		AnomalyActionDTO dto = AnomalyActionConverter.convertTo(anomalyActionService.findById(id));
-		return ResponseEntity.ok().body(dto);
+	public ResponseEntity<List<AnomalyActionDTO>> findById(@PathVariable Long id) {
+		List<AnomalyAction> actions = anomalyActionService.findByAnomalyId(id);
+		List<AnomalyActionDTO> dtoList = new ArrayList<>();
+		if(!actions.isEmpty()) {
+			for(AnomalyAction action : actions) {
+				dtoList.add(AnomalyActionConverter.convertTo(action));
+			}
+		}
+		return ResponseEntity.ok().body(dtoList);
 	}
 	@PostMapping
 	public ResponseEntity<AnomalyActionDTO> insert (@RequestBody AnomalyActionDTO dto){

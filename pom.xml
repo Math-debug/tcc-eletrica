@@ -21,6 +21,7 @@
 		<module>unip-domain</module>
 		<module>unip-sync</module>
 		<module>unip-anomaly</module>
+		<module>unip-reports</module>
 	</modules>
 	<dependencies>
 		<dependency>

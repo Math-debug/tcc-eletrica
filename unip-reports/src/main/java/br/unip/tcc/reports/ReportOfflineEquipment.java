@@ -32,4 +32,9 @@ public class ReportOfflineEquipment extends Report{
 		report.setHours(rs.getInt("hours"));
 		return report;
 	}
+	
+	@Override
+	public Object[] getParams(String params) {
+		return new Object[]{new Long(params),new Long(params)};
+	}
 }

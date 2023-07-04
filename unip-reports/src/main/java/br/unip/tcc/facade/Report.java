@@ -11,5 +11,9 @@ public abstract class Report implements RowMapper<Report>{
 	public Report mapRow(ResultSet rs, int rowNum) throws SQLException {
 		return null;
 	}
+	
+	public Object[] getParams(String params){
+		return new Object[]{};
+	}
 
 }

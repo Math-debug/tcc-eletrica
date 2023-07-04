@@ -1,7 +1,5 @@
 package br.unip.tcc.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,21 +29,8 @@ public class ReportService {
 
 	public List<Report> getReport(Long id, String params) {
 		ReportList report = reportListRepository.findById(id).get();
-		Object[] param = new Object[]{};
-		if(report.getParametro() != null) {
-			if(report.getParametro().equals("mes")) {
-				param = new Object[]{new Long(params),new Long(params)};
-			}else if(report.getParametro().equals("data")) {
-				String[] datas = params.split(";");
-				try {
-					param = new Object[]{new SimpleDateFormat("dd/MM/yyyy").parse(datas[0]), new SimpleDateFormat("dd/MM/yyyy").parse(datas[1])};
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 		Report mapper = ReportFactory.factory(report.getReportid());
-		List<Report> list = jdbcTemplate.query(report.getQuery(), param, mapper);
+		List<Report> list = jdbcTemplate.query(report.getQuery(), mapper.getParams(params), mapper);
 		return list;
 	}
 }

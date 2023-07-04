@@ -2,6 +2,8 @@ package br.unip.tcc.reports;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import br.unip.tcc.facade.Report;
 
@@ -75,5 +77,16 @@ public class ReportAnomalies extends Report{
 		report.setObservation(rs.getString("observation"));
 		report.setUsername(rs.getString("username"));
 		return report;
+	}
+	
+	@Override
+	public Object[] getParams(String params) {
+		String[] datas = params.split(";");
+		try {
+			return new Object[]{new SimpleDateFormat("dd/MM/yyyy").parse(datas[0]), new SimpleDateFormat("dd/MM/yyyy").parse(datas[1])};
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return new Object[]{};
+		}
 	}
 }

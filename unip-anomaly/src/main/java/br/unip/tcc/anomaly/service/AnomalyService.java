@@ -29,13 +29,13 @@ public class AnomalyService {
 		return anomalyRepository.findById(id).get();
 	}
 	public Anomaly save (AnomalyDTO dto) {
-		Anomaly entity = AnomalyConverter.convertTo(dto);
+		Anomaly entity = anomalyRepository.save(AnomalyConverter.convertTo(dto));
 		if(dto.getUrgeceid().equals(UrgenceTypeEnum.LOW)) {
 			webSocket.newAnomaly(entity);
 		}else {
 			webSocket.updateAnomaly(entity);
 		}
-		return anomalyRepository.save(entity);
+		return entity;
 	}
 	public Anomaly normalized (Anomaly entity) {
 		entity.setStatusid(AnomalyStatusEnum.NORMALIZED);

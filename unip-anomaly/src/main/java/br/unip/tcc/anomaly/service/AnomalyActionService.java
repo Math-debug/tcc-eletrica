@@ -13,6 +13,7 @@ import br.unip.tcc.entity.AnomalyStatusEnum;
 import br.unip.tcc.entity.dto.AnomalyActionDTO;
 import br.unip.tcc.repository.AnomalyActionRepository;
 import br.unip.tcc.repository.AnomalyRepository;
+import br.unip.tcc.websocket.WebSocketController;
 
 @Service
 public class AnomalyActionService {
@@ -21,6 +22,9 @@ public class AnomalyActionService {
 	
 	@Autowired
     AnomalyRepository anomalyRepository;
+	
+	@Autowired
+	WebSocketController webSocket;
 	
 	public List<AnomalyAction> findAll(){
 		return anomalyActionRepository.findAll();
@@ -39,6 +43,7 @@ public class AnomalyActionService {
 			anomaly.setStatusid(AnomalyStatusEnum.TRATED);
 		}
 		anomalyRepository.save(anomaly);
+		webSocket.updateAnomaly(anomaly);
 		return action;
 	}
 }

@@ -3,7 +3,10 @@ package br.unip.tcc.entity;
 public enum AnomalyTypeEnum {
 	CURRENTOVERLOAD(1l),
 	VOLTAGEOVERLOAD(2l),
-	PHASEMISSING(3l);
+	PHASEMISSING(3l),
+	CURRENTUNDER(4l),
+	VOLTAGEUNDER(5l),
+	SHUTDOWN(6l);
 	
 	public Long valor;
 	

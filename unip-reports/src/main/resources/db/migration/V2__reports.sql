@@ -50,7 +50,7 @@ inner join anom_anomaly aa2 on
 	aa.anomalyid = aa2.anomalyid
 inner join tcc_sysuser ts on
 	aa.userid = ts.sysuserid
-	where createdat between ? and ?
+	where aa2.createdat between ? and ?
 group by
 	aa2.anomalyid,
 	aa2.description,

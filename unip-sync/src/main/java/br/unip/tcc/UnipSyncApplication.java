@@ -11,16 +11,13 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import br.unip.tcc.sync.service.SyncService;
+import br.unip.tcc.sync.usecase.Sync;
 
 @SpringBootApplication
 @EntityScan("br.unip.tcc.entity")
 @EnableJpaRepositories(basePackages = {"br.unip.tcc.repository"})
 @EnableScheduling
 public class UnipSyncApplication {
-	
-	@Autowired
-	SyncService syncService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(UnipSyncApplication.class, args);

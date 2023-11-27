@@ -9,6 +9,8 @@ import br.unip.tcc.entity.dto.VoltageDTO;
 import br.unip.tcc.proto.KeepAliveProto;
 import br.unip.tcc.proto.KeepAliveProto.KeepAlive;
 
+import java.util.Optional;
+
 public class KeepAliveProtoConverter {
 	
 	public static KeepAlive convertTO(KeepAliveDTO dto) {
@@ -16,12 +18,12 @@ public class KeepAliveProtoConverter {
 		builderEquipment.setId(dto.getEquipment().getId().intValue());
 		KeepAliveProto.Current.Builder builderCurrent = KeepAliveProto.Current.newBuilder();
 		builderCurrent.setA(dto.getCurrent().getA());
-		builderCurrent.setB(dto.getCurrent().getB());
-		builderCurrent.setC(dto.getCurrent().getC());
+		builderCurrent.setB(dto.getCurrent().getB() != null ? dto.getCurrent().getB():dto.getCurrent().getA());
+		builderCurrent.setC(dto.getCurrent().getC() != null ? dto.getCurrent().getC():dto.getCurrent().getA());
 		KeepAliveProto.Voltage.Builder builderVoltage = KeepAliveProto.Voltage.newBuilder();
 		builderVoltage.setAb(dto.getVoltage().getAb());
-		builderVoltage.setBc(dto.getVoltage().getBc());
-		builderVoltage.setCa(dto.getVoltage().getCa());
+		builderVoltage.setBc(dto.getVoltage().getBc()!= null ? dto.getVoltage().getBc(): dto.getVoltage().getAb());
+		builderVoltage.setCa(dto.getVoltage().getCa()!= null ? dto.getVoltage().getCa(): dto.getVoltage().getAb());
 		KeepAliveProto.KeepAlive.Builder builderKeepAlive = KeepAliveProto.KeepAlive.newBuilder();
 		builderKeepAlive.setEquipment(builderEquipment);
 		builderKeepAlive.setCurrent(builderCurrent);

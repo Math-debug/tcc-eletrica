@@ -3,13 +3,13 @@ package br.unip.tcc.entity.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter 
 @Setter 
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class KeepAliveDTO implements Serializable{
 	
 	public static final String MONOFASICO = "M";
